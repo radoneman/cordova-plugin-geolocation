@@ -137,13 +137,24 @@
     [self.locationManager stopUpdatingLocation];
     [self.locationManager startUpdatingLocation];
     __locationStarted = YES;
+
+     // force high accuracy
+    enableHighAccuracy = true;
+
     if (enableHighAccuracy) {
         __highAccuracyEnabled = YES;
+
         // Set distance filter to 5 for a high accuracy. Setting it to "kCLDistanceFilterNone" could provide a
         // higher accuracy, but it's also just spamming the callback with useless reports which drain the battery.
-        self.locationManager.distanceFilter = 5;
+        // self.locationManager.distanceFilter = 5;
         // Set desired accuracy to Best.
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        // self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+
+        // no filter for distance (value is in meters)
+        self.locationManager.distanceFilter = kCLDistanceFilterNone;
+
+        // maximum accurracy (hardcoded)
+        self.locationManager.desiredAccuracy = 0.0;
     } else {
         __highAccuracyEnabled = NO;
         self.locationManager.distanceFilter = 10;
